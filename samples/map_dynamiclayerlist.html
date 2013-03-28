@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>Dynamically Create Map Service Layer List</title>
+    <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/dojo/dijit/themes/claro/claro.css" />
+    <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/esri/css/esri.css" />
+ 
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/"></script>
+
+    <style type="text/css">
+    	body {
+    		height: 100%; width: 100%; margin: 0px; padding: 0px;
+			overflow: hidden;
+    	}
+        #topbar {
+            position: absolute; left: 0px; top: 0px; right: 0px; bottom: auto;
+            height: 40px; width: 100%;
+			background-color: #EFEFEF;
+            border: 1px solid #C0C0C0;
+			font: normal, normal, normal, bold, !00%, Arial, Helvetica, sans-serif;
+            padding: 5px;
+        }
+    	#map {
+    		position: absolute; left: 0px; top: 40px; right: 30%; bottom: 0px;
+			height: auto; width: 70%;
+			background-color: #DCDCDC;
+			border: 1px solid #909090;
+    	}
+        #layer_list {
+            position: absolute; left: 70%; top: 40px; right: 0px; bottom: 0px;
+            height: auto; width: 30%;
+			background-color: #FFFFFF;
+            border: 1px solid #C0C0C0;
+			padding: 5px;
+        }
+    </style>
+	<script type="text/javascript">
+		dojo.require("esri.map");
+		
+		var layer, map, visibleIds = [];
+		var landsUrl = "https://map.dfg.ca.gov/arcgis/rest/services/Base_Land_Ownership/Land_Ownership/MapServer";
+		//"http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer"
+		var biosToken = "QZkkkV8udesErza5I4l8L4krJcQyb7cqvf4VZf7IZdkW-lRZvfDgKW9X1u8d6j8IalV1YepfSbYX29S48-fglw..";
+		biosToken = "cUuHyLWYIBD4Ss9FbmGMb7f5BhUK4zgF010eo5qwgiisUhP-wnvifc2pDShIpXkT4JaZblunWvJJgEXhWtIVQg..";
+		var biosLayerUrl = "https://map.dfg.ca.gov/arcgis/rest/services/Project_BIOS_Secure/q_BIOS_Secure_polygons07/MapServer";
+        var biosUrl = biosLayerUrl + "/?token=" + biosToken;
+		
+		function init(){
+			map = new esri.Map("map", {
+				basemap: "topo",
+				center: [-122.45, 37.75],
+				zoom: 10,
+				sliderStyle: "small"
+			});
+			
+			layer = new esri.layers.ArcGISDynamicMapServiceLayer(landsUrl, {
+				id: "lands_layer"
+			});
+			
+			if (layer.loaded) {
+				buildLayerList(layer);
+			}
+			else {
+				dojo.connect(layer, "onLoad", buildLayerList);
+			}
+            
+            bioss = new esri.layers.ArcGISDynamicMapServiceLayer(biosUrl, {
+                id: "bios_layer"
+            });
+            
+            if (bioss.loaded) {
+                buildLayerList(bioss);
+            }
+            else {
+                dojo.connect(bioss, "onLoad", buildLayerList);
+            }
+		}//DONE init
+		
+		function buildLayerList(layer){
+			var items = dojo.map(layer.layerInfos, function(info, index){
+				if (info.defaultVisibility) {
+					visibleIds.push(info.id);
+				}
+				return "<input type='checkbox' class='list_item'" + (info.defaultVisibility ? "checked=checked" : "") + "' id='" + info.id + "' onclick='updateLayerVisibility();' /><label for='" + info.id + "'>" + info.name + "</label><br />";
+			});
+			
+			dojo.byId("layer_list").innerHTML = items.join(' ');
+			
+			layer.setVisibleLayers(visibleIds);
+			map.addLayer(layer);
+		}//DONE buildLayerList
+		
+		function updateLayerVisibility(){
+			var inputs = dojo.query(".list_item"), input;
+			
+			visibleIds = [];
+			
+			dojo.forEach(inputs, function(input){
+				if (input.checked) {
+					visibleIds.push(input.id);
+				}
+			});
+			//if there aren't any layers visibleIds set the array to be -1
+			if (visibleIds.length === 0) {
+				visibleIds.push(-1);
+			}
+			layer.setVisibleLayers(visibleIds);
+		}//DONE updateLayerVisibility
+		
+		dojo.ready(init);
+    </script>
+</head>
+
+<body class="claro">
+  	<div id="topbar">
+  		Unsecured JavaScript page accessing map services under SSL
+  	</div>
+    <div id="map" class="claro"></div>
+	<div id="layer_list"></div>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+html, body {
+	height: 100%; width: 100%; margin: 0px;
+	overflow: hidden; padding: 0px;
+}
+h2 {
+    margin: 0px; padding: 5px; display: inline;
+}
+/* Major Panels */
+#topbar {
+    position: absolute; left: 0%; top: 0%; right: 0%; bottom: 95%;
+    height: 5%; width: 100%;
+    border: 1px solid #C0C0C0;
+	overflow: visible;
+	z-index: 500;
+}
+#map {
+	position: absolute; left: 0%; top: 5%; right: 0%; bottom: 0%;
+	height: 95%; width: 70%;
+	border: 1px solid #808080;
+}
+#layer_list {
+    position: absolute; left: 70%; top: 5%; right: 0px; bottom: 0px;
+    height: auto; width: 30%;
+    background-color: #FFFFFF;
+    border: 1px solid #C0C0C0;
+    padding: 5px;
+}
+#toolbelt {
+    position: absolute; left: 90%; top: 5%; right: 0%; bottom: 0%;
+    height: 95%; width: 10%;
+    border: 1px solid #C0C0C0;
+	overflow: visible;
+	z-index: 300;
+}
+#querybuilder {
+    position: absolute; left: 50%; top: 5%; right: 0px; bottom: 30%;
+    height: 65%; width: 50%;
+	background-color: #FFFFFF;
+    border: 1px solid #909090;
+	padding: 5px;
+	z-index: 400;
+}
+#msgboard {
+    position: absolute; left: 0%; top: 85%; right: 30%; bottom: 0%;
+    height: 15%; width: 70%;
+    background-color: #000000;
+    border: 1px solid #C0C0C0;
+	color: #FFFFFF;
+	font: normal normal normal small Courier;
+	overflow: scroll;
+	padding: 2px;
+}
+/*
+ * BOTTOM PANEL
+ */
+#data-view {
+    position: absolute; 
+    background-color: #F0F0F0;
+    border: 1px solid #909090;
+    color: #000000;
+    font: normal normal normal small Arial, Helvetica, sans-serif;
+    overflow: auto;
+    z-index: 400;
+}
+.data-view-min {
+    position: absolute; left: 0%; top: auto; right: 0%; bottom: -175px;
+    height: 200px; width: 100%;
+}
+.data-view-med {
+    position: absolute; left: 0%; top: 70%; right: 0%; bottom: 0%;
+    height: 30%; width: 100%;
+}
+.data-view-max {
+    position: absolute; left: 0%; top: 50%; right: 0%; bottom: 0%;
+    height: 50%; width: 100%;
+    background-color: #F0F0F0;
+    border: 1px solid #909090;
+    color: #000000;
+    font: normal normal normal small Arial, Helvetica, sans-serif;
+    overflow: auto;
+    z-index: 400;
+}
+#data-titlebar {
+    position: absolute; left: 0px; top: 0px; right: 0px; bottom: auto;
+    height: 28px; width: 100%;
+    background-color: #FFFFFF;	
+    border: 1px solid #999999;
+	font: normal normal bold small Arial, Helvetica, sans-serif;
+    padding: 2px;
+}
+#gtable_div {
+    position: absolute; left: 1px; top: 30px; right: 1px; bottom: 5px;
+    height: auto; width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #C0C0C0;
+}
+/*
+ * TOP PANEL
+ */
+#app-title {
+    margin: 0px; padding: 5px; display: inline;
+}
+#tools 
+{
+    position: absolute; top: 5px; right: 5px;
+}
+#tools-view 
+{
+    position: absolute; top: 5px; right: 5px;
+    height: auto; width: 120px;
+    background-color: #EFEFEF;
+    border: 2px solid #C0C0C0;
+    z-index: 510;
+}
+/*
+ * POP OPEN TOOL PANELS
+ */
+#querybuilder-columns {
+    background-color: #FFFFEE;
+    margin: 5px;
+    padding: 5px;
+}
+#querybuilder-where {
+    width: 96%;
+}
+/* Panel Components */
+#data-hide {
+    position: absolute; top: 2px; right: 2px;
+	padding: 0px;
+}
+#topbar {
+	position: absolute; left: 0px; top: 0px;
+}
+#toolbar {
+	position: absolute; left: 0px; top: 0px;
+}
+/*
+ * MAP VIEW
+ */
+.scaletool {
+	position: absolute; left: 6%; top: 6%;
+	height: auto; width: auto;
+	background-color: #FFFFFF;
+	border: 2px solid #999999;
+	border-radius: 8px;
+	font: normal normal bold small Arial, Georgia, Helvetica, sans-serif;
+	padding: 5px;
+	z-index: 255;
+}
+
+/* Common Styles */
+.menu-ul {
+	border: 1px solid #808088;
+	list-style: none;
+	margin: 0px;
+	padding: 2px;
+	z-index: 500;
+}
+.menu-li {
+    border: 1px solid #C0C0CC;
+    list-style: none;
+    margin: 0px;
+    padding: 2px;
+}
+.active-layername {
+	/*background-color: #FFFFFF;*/
+	color: #000000;
+	font: italic normal normal small Arial, Helvetica, sans-serif, Courier;
+	padding: 0px 5px 0px 5px;
+}
+.button-hide {
+	color: #FF0000;
+	font: normal normal bold small Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.button-view {
+	font: normal normal bold small Arial, Helvetica, sans-serif;
+}
+.checklist {
+	font: normal normal normal small Arial, Helvetica, sans-serif;
+}
+/*
+ * STYLE GUIDE
+ * #4682B4=SteelBlue, #708090=SlateGray, 
+ */

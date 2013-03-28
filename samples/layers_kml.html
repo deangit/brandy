@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+<title>KML Layer</title>
+
+<link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/dojo/dijit/themes/tundra/tundra.css" />
+<link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/esri/css/esri.css" />
+<style type="text/css">
+	html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
+	#map { margin: 0; padding: 0; }
+	#meta {
+		position: absolute;
+		left: 20px;
+		bottom: 20px;
+		width: 300px;
+		height: 100px;
+		z-index: 40;
+		background: #fff;
+		color: #777;
+		padding: 5px;
+		border: 2px solid #666;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px; 
+		font-family: arial;
+		font-size: 0.9em;
+	}
+	#meta h3 {
+		color: #666;
+		font-size: 1.1em;
+		padding: 0px;
+		margin: 0px;
+		display: inline-block;
+	}
+	#loading { 
+    	float: right;
+	}
+</style>
+
+<script type="application/javascript">var dojoConfig = { parseOnLoad: true };</script>
+<script type="application/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/"></script>
+<script type="application/javascript">
+	dojo.require("dijit.layout.BorderContainer");
+	dojo.require("dijit.layout.ContentPane");
+	dojo.require("esri.map");
+	dojo.require("esri.layers.KMLLayer");
+	
+	var map;
+	
+	function init(){
+		map = new esri.Map("map", {
+			basemap: "topo",
+			center: [-120.34, 38.567],
+			zoom: 7
+		});
+		
+		var kmlUrl = "http://dl.dropbox.com/u/2654618/kml/Wyoming.kml";
+		kmlUrl = "http://ftp.dfg.ca.gov/Public/BDB/drankin/CAL_DFW_Instream_Flow_Recommendations.kml";
+		var kml = new esri.layers.KMLLayer(kmlUrl);
+		map.addLayer(kml);
+		dojo.connect(kml, "onLoad", function(){
+			dojo.style(dojo.byId("loading"), "display", "none");
+		});
+	}
+	dojo.ready(init);
+</script>
+</head>
+
+<body class="tundra">
+	<div data-dojo-type="dijit.layout.BorderContainer" 
+		data-dojo-props="design:'headline',gutters:false" 
+		style="width: 100%; height: 100%; margin: 0;">
+		<div id="map" 
+			data-dojo-type="dijit.layout.ContentPane" 
+			data-dojo-props="region:'center'">
+			<div id="meta">
+				<span id="loading"><img src="http://http://help.arcgis.com/en/webapi/javascript/arcgis/samples/layers_kml/images/loading_black.gif" /></span>
+				<h3>Display KML Using a <a href="http://help.arcgis.com/en/webapi/javascript/arcgis/help/jsapi/kmllayer.htm">KMLLayer</a></h3>
+				<br />
+				The map displays a simple KML file that was created using Google Earth and
+				is hosted on an Esri server. Symbology and attributes are honored.
+			<div>
+            <!--
+			-->
+		</div>
+	</div>
+</body>
+</html>
+
